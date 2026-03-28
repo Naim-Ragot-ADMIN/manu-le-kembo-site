@@ -708,6 +708,57 @@
       gap: 12px;
     }
 
+    .soundboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .sound-card {
+      display: grid;
+      gap: 14px;
+    }
+
+    .sound-card.is-recording {
+      border-color: rgba(255, 107, 138, 0.45);
+      box-shadow: 0 0 0 1px rgba(255, 107, 138, 0.18), 0 18px 44px rgba(0, 0, 0, 0.34);
+    }
+
+    .sound-card__title {
+      margin: 0;
+      font-size: 1.18rem;
+    }
+
+    .sound-card__quote {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .sound-card__status {
+      min-height: 40px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .recording-live {
+      color: var(--danger);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      animation: glitchShift 1.2s infinite steps(1);
+    }
+
+    .sound-card .hero-actions {
+      margin-top: 0;
+    }
+
     .boss-mode .playfield {
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 0 1px rgba(255, 79, 216, 0.3), 0 24px 60px rgba(0, 0, 0, 0.42);
     }
@@ -842,6 +893,7 @@
         <a href="#galerie">Photos dossier</a>
         <a href="#qualites">Ses qualités</a>
         <a href="#simulateur">Simulateur de boude</a>
+        <a href="#expressions">Expressions</a>
         <a href="#jeu">Mini-jeu</a>
         <a href="#rage">Compteur de boude</a>
       </nav>
@@ -1036,6 +1088,66 @@
       </div>
     </section>
 
+    <section class="section" id="expressions">
+      <div class="panel">
+        <div class="eyebrow">Soundboard du drame</div>
+        <h2>Les expressions officielles de Manu</h2>
+        <p class="section-intro">Tu peux cliquer pour lancer l'expression, enregistrer ta propre version au micro, puis la garder dans le navigateur. Le dernier slot reste libre pour une phrase personnalisée.</p>
+        <div class="soundboard-grid">
+          <article class="card sound-card" data-expression-card="pshiiiiiii">
+            <h3 class="sound-card__title">Expression n°1</h3>
+            <div class="sound-card__quote">pshiiiiiii</div>
+            <div class="sound-card__status" id="status-pshiiiiiii">Aucun vocal enregistré pour le moment.</div>
+            <div class="hero-actions">
+              <button class="button button-primary expression-play" data-expression-play="pshiiiiiii" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="pshiiiiiii" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="pshiiiiiii" type="button">Effacer</button>
+            </div>
+          </article>
+          <article class="card sound-card" data-expression-card="mbheeee">
+            <h3 class="sound-card__title">Expression n°2</h3>
+            <div class="sound-card__quote">mbheeee</div>
+            <div class="sound-card__status" id="status-mbheeee">Aucun vocal enregistré pour le moment.</div>
+            <div class="hero-actions">
+              <button class="button button-primary expression-play" data-expression-play="mbheeee" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="mbheeee" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="mbheeee" type="button">Effacer</button>
+            </div>
+          </article>
+          <article class="card sound-card" data-expression-card="aaaaiiiiiiiie">
+            <h3 class="sound-card__title">Expression n°3</h3>
+            <div class="sound-card__quote">aaaaiiiiiiiie</div>
+            <div class="sound-card__status" id="status-aaaaiiiiiiiie">Aucun vocal enregistré pour le moment.</div>
+            <div class="hero-actions">
+              <button class="button button-primary expression-play" data-expression-play="aaaaiiiiiiiie" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="aaaaiiiiiiiie" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="aaaaiiiiiiiie" type="button">Effacer</button>
+            </div>
+          </article>
+          <article class="card sound-card" data-expression-card="kembooo">
+            <h3 class="sound-card__title">Expression n°4</h3>
+            <div class="sound-card__quote">kembooo</div>
+            <div class="sound-card__status" id="status-kembooo">Aucun vocal enregistré pour le moment.</div>
+            <div class="hero-actions">
+              <button class="button button-primary expression-play" data-expression-play="kembooo" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="kembooo" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="kembooo" type="button">Effacer</button>
+            </div>
+          </article>
+          <article class="card sound-card" data-expression-card="phrase-secrete">
+            <h3 class="sound-card__title">Slot perso</h3>
+            <div class="sound-card__quote">Phrase secrète de Manu</div>
+            <div class="sound-card__status" id="status-phrase-secrete">Utilise ce slot pour enregistrer une expression libre à votre sauce.</div>
+            <div class="hero-actions">
+              <button class="button button-primary expression-play" data-expression-play="phrase-secrete" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="phrase-secrete" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="phrase-secrete" type="button">Effacer</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="cards">
         <article class="card">
@@ -1225,6 +1337,29 @@
       "media/manu5.jpeg"
     ];
 
+    const expressionCatalog = {
+      "pshiiiiiii": {
+        label: "Pshiiiiiii",
+        text: "pshiiiiiii"
+      },
+      "mbheeee": {
+        label: "Mbheeee",
+        text: "mbheeee"
+      },
+      "aaaaiiiiiiiie": {
+        label: "Aaaaiiiiiiiie",
+        text: "aaaaiiiiiiiie"
+      },
+      "kembooo": {
+        label: "Kembooo",
+        text: "kembooo"
+      },
+      "phrase-secrete": {
+        label: "Phrase secrète de Manu",
+        text: "Phrase secrète de Manu"
+      }
+    };
+
     const quoteBox = document.getElementById("quoteBox");
     const rageButton = document.getElementById("rageButton");
     const rageModeButton = document.getElementById("rageModeButton");
@@ -1246,6 +1381,9 @@
     const gameScore = document.getElementById("gameScore");
     const gameTime = document.getElementById("gameTime");
     const gameGoal = document.getElementById("gameGoal");
+    const expressionPlayButtons = [...document.querySelectorAll("[data-expression-play]")];
+    const expressionRecordButtons = [...document.querySelectorAll("[data-expression-record]")];
+    const expressionClearButtons = [...document.querySelectorAll("[data-expression-clear]")];
 
     let currentDrama = 9999;
     let rageMode = false;
@@ -1259,6 +1397,199 @@
     let gameCountdownTimer = null;
     const gameGoalValue = 8;
     let bossMode = false;
+    let mediaRecorder = null;
+    let currentRecordingKey = null;
+    let recordedChunks = [];
+    let mediaStream = null;
+    let audioDbPromise = null;
+
+    function openAudioDb() {
+      if (audioDbPromise) return audioDbPromise;
+      audioDbPromise = new Promise((resolve, reject) => {
+        const request = indexedDB.open("manu-soundboard-db", 1);
+        request.onupgradeneeded = () => {
+          const database = request.result;
+          if (!database.objectStoreNames.contains("clips")) {
+            database.createObjectStore("clips");
+          }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error || new Error("Impossible d'ouvrir la base audio."));
+      });
+      return audioDbPromise;
+    }
+
+    async function saveAudioClip(key, blob) {
+      const database = await openAudioDb();
+      return new Promise((resolve, reject) => {
+        const transaction = database.transaction("clips", "readwrite");
+        transaction.objectStore("clips").put(blob, key);
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = () => reject(transaction.error || new Error("Impossible d'enregistrer le vocal."));
+      });
+    }
+
+    async function loadAudioClip(key) {
+      const database = await openAudioDb();
+      return new Promise((resolve, reject) => {
+        const transaction = database.transaction("clips", "readonly");
+        const request = transaction.objectStore("clips").get(key);
+        request.onsuccess = () => resolve(request.result || null);
+        request.onerror = () => reject(request.error || new Error("Impossible de lire le vocal."));
+      });
+    }
+
+    async function removeAudioClip(key) {
+      const database = await openAudioDb();
+      return new Promise((resolve, reject) => {
+        const transaction = database.transaction("clips", "readwrite");
+        transaction.objectStore("clips").delete(key);
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = () => reject(transaction.error || new Error("Impossible d'effacer le vocal."));
+      });
+    }
+
+    function updateExpressionStatus(key, message, isRecording = false) {
+      const statusNode = document.getElementById(`status-${key}`);
+      const card = document.querySelector(`[data-expression-card="${key}"]`);
+      if (!statusNode || !card) return;
+      statusNode.textContent = message;
+      statusNode.classList.toggle("recording-live", isRecording);
+      card.classList.toggle("is-recording", isRecording);
+    }
+
+    function speakExpression(text) {
+      if (!("speechSynthesis" in window)) {
+        showSecret("Ton navigateur ne sait pas lire cette expression à voix haute.");
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "fr-FR";
+      utterance.rate = 0.92;
+      utterance.pitch = 0.82;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    async function playExpression(key) {
+      try {
+        const clip = await loadAudioClip(key);
+        const expression = expressionCatalog[key];
+        if (clip) {
+          const clipUrl = URL.createObjectURL(clip);
+          const audio = new Audio(clipUrl);
+          audio.addEventListener("ended", () => URL.revokeObjectURL(clipUrl), { once: true });
+          audio.addEventListener("error", () => URL.revokeObjectURL(clipUrl), { once: true });
+          audio.play().catch(() => {
+            URL.revokeObjectURL(clipUrl);
+            speakExpression(expression.text);
+          });
+          updateExpressionStatus(key, `Lecture du vocal "${expression.label}".`);
+          return;
+        }
+        speakExpression(expression.text);
+        updateExpressionStatus(key, `Lecture synthétique de "${expression.label}" en attendant ton enregistrement.`);
+      } catch (error) {
+        showSecret("Le vocal n'a pas pu être lu. Vérifie les permissions du navigateur.");
+      }
+    }
+
+    function stopCurrentRecorder() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+    }
+
+    async function startExpressionRecording(key) {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === "undefined") {
+        showSecret("L'enregistrement micro n'est pas disponible sur ce navigateur.");
+        return;
+      }
+
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        if (currentRecordingKey === key) {
+          stopCurrentRecorder();
+          return;
+        }
+        stopCurrentRecorder();
+      }
+
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordedChunks = [];
+        currentRecordingKey = key;
+        mediaRecorder = new MediaRecorder(mediaStream);
+        updateExpressionStatus(key, "Enregistrement en cours... reclique pour arrêter.", true);
+
+        mediaRecorder.addEventListener("dataavailable", (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        });
+
+        mediaRecorder.addEventListener("stop", async () => {
+          const finishedKey = currentRecordingKey;
+          const expression = expressionCatalog[finishedKey];
+          const blobType = recordedChunks[0]?.type || "audio/webm";
+          const clipBlob = new Blob(recordedChunks, { type: blobType });
+          recordedChunks = [];
+          currentRecordingKey = null;
+
+          if (mediaStream) {
+            mediaStream.getTracks().forEach((track) => track.stop());
+            mediaStream = null;
+          }
+
+          if (clipBlob.size > 0) {
+            try {
+              await saveAudioClip(finishedKey, clipBlob);
+              updateExpressionStatus(finishedKey, `Vocal "${expression.label}" enregistré et sauvegardé dans ce navigateur.`);
+              showSecret(`Vocal enregistré pour ${expression.label}.`);
+            } catch (error) {
+              updateExpressionStatus(finishedKey, "Le vocal a bien été capté mais n'a pas pu être sauvegardé.");
+              showSecret("Le navigateur a refusé de sauvegarder le vocal.");
+            }
+          } else {
+            updateExpressionStatus(finishedKey, "Aucun son capté. Recommence en autorisant bien le micro.");
+          }
+        }, { once: true });
+
+        mediaRecorder.start();
+      } catch (error) {
+        currentRecordingKey = null;
+        if (mediaStream) {
+          mediaStream.getTracks().forEach((track) => track.stop());
+          mediaStream = null;
+        }
+        showSecret("Le micro a été refusé ou indisponible. Autorise le micro puis réessaie.");
+      }
+    }
+
+    async function clearExpression(key) {
+      try {
+        await removeAudioClip(key);
+        if (key === "phrase-secrete") {
+          updateExpressionStatus(key, "Slot libre à nouveau. Tu peux y enregistrer n'importe quelle formule perso.");
+        } else {
+          updateExpressionStatus(key, "Vocal effacé. La lecture repassera en version synthétique.");
+        }
+        showSecret(`Le vocal de ${expressionCatalog[key].label} a été effacé.`);
+      } catch (error) {
+        showSecret("Impossible d'effacer ce vocal pour le moment.");
+      }
+    }
+
+    async function hydrateSoundboard() {
+      for (const key of Object.keys(expressionCatalog)) {
+        try {
+          const clip = await loadAudioClip(key);
+          if (clip) {
+            updateExpressionStatus(key, `Un vocal perso est prêt pour "${expressionCatalog[key].label}".`);
+          }
+        } catch (error) {
+        }
+      }
+    }
 
     function randomManuImage() {
       return manuImages[Math.floor(Math.random() * manuImages.length)];
@@ -1421,6 +1752,23 @@
     rageModeButton.addEventListener("click", toggleRageMode);
     scanButton.addEventListener("click", scanDrama);
     startGameButton.addEventListener("click", startMiniGame);
+    expressionPlayButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        playExpression(button.dataset.expressionPlay);
+        playBeep();
+      });
+    });
+    expressionRecordButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        startExpressionRecording(button.dataset.expressionRecord);
+        playBeep();
+      });
+    });
+    expressionClearButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        clearExpression(button.dataset.expressionClear);
+      });
+    });
     stopGameButton.addEventListener("click", () => {
       if (!gameRunning) {
         gameStatus.textContent = "Aucune mission en cours. Manu reste quand même très observateur.";
@@ -1461,6 +1809,7 @@
 
     updateDrama();
     updateGameHud();
+    hydrateSoundboard();
   </script>
 </body>
 </html>
