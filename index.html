@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manu le Kembo · Le drame du trio Fortnite</title>
+  <style>
+    :root {
+      --bg: #070713;
+      --bg-soft: #101427;
+      --panel: rgba(13, 18, 38, 0.82);
+      --panel-strong: rgba(18, 23, 49, 0.94);
+      --text: #eef2ff;
+      --muted: #a6afd8;
+      --line: rgba(153, 170, 255, 0.16);
+      --violet: #8b5cf6;
+      --blue: #22d3ee;
+      --pink: #ff4fd8;
+      --danger: #ff6b8a;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.24), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(34, 211, 238, 0.22), transparent 22%),
+        radial-gradient(circle at 50% 80%, rgba(255, 79, 216, 0.12), transparent 22%),
+        linear-gradient(180deg, #06060f 0%, #0a0d1c 45%, #080812 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background:
+        linear-gradient(transparent 0%, rgba(255, 255, 255, 0.025) 50%, transparent 100%);
+      background-size: 100% 6px;
+      mix-blend-mode: screen;
+      opacity: 0.45;
+      animation: scanlines 10s linear infinite;
+    }
+
+    body::after {
+      background:
+        linear-gradient(90deg, rgba(139, 92, 246, 0.06), transparent 28%, transparent 72%, rgba(34, 211, 238, 0.05));
+      filter: blur(18px);
+      opacity: 0.7;
+    }
+
+    @keyframes scanlines {
+      from { transform: translateY(0); }
+      to { transform: translateY(12px); }
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(34, 211, 238, 0); }
+      50% { box-shadow: 0 0 28px rgba(34, 211, 238, 0.28); }
+    }
+
+    @keyframes glitchShift {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 1px); }
+      40% { transform: translate(2px, -1px); }
+      60% { transform: translate(-1px, 2px); }
+      80% { transform: translate(1px, -2px); }
+    }
+
+    @keyframes rageShake {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      10% { transform: translate3d(-4px, 2px, 0); }
+      20% { transform: translate3d(5px, -3px, 0); }
+      30% { transform: translate3d(-6px, 4px, 0); }
+      40% { transform: translate3d(6px, -2px, 0); }
+      50% { transform: translate3d(-5px, 1px, 0); }
+      60% { transform: translate3d(5px, 3px, 0); }
+      70% { transform: translate3d(-3px, -4px, 0); }
+      80% { transform: translate3d(4px, 2px, 0); }
+      90% { transform: translate3d(-2px, -1px, 0); }
+    }
+
+    .rage-mode {
+      animation: rageShake 0.55s ease;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(7, 10, 24, 0.72);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(34, 211, 238, 0.18));
+      border: 1px solid rgba(139, 92, 246, 0.28);
+      flex-shrink: 0;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(12, 16, 34, 0.9), rgba(11, 15, 29, 0.82));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -55% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.12);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      border: 1px solid rgba(34, 211, 238, 0.18);
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5.7rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      position: relative;
+    }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+      animation: glitchShift 5s infinite steps(1);
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .glitch::before {
+      color: var(--blue);
+      transform: translate(-2px, 1px);
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 48%);
+    }
+
+    .glitch::after {
+      color: var(--pink);
+      transform: translate(2px, -1px);
+      clip-path: polygon(0 60%, 100% 42%, 100% 100%, 0 100%);
+    }
+
+    .hero p,
+    .section-intro,
+    .story-copy,
+    .footer-note {
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 1.03rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .button {
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .button-primary {
+      color: #061019;
+      background: linear-gradient(135deg, var(--blue), #7dd3fc 70%);
+      box-shadow: 0 14px 30px rgba(34, 211, 238, 0.25);
+      animation: pulseGlow 4s infinite;
+    }
+
+    .button-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: space-between;
+      min-height: 100%;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 280px;
+    }
+
+    .avatar-glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.28), transparent 66%);
+      filter: blur(18px);
+      animation: floaty 5s ease-in-out infinite;
+    }
+
+    .avatar {
+      position: relative;
+      width: min(100%, 310px);
+      animation: floaty 6s ease-in-out infinite;
+      filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.5));
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .mini-stat {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mini-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+
+    .mini-stat strong {
+      font-size: 1.08rem;
+    }
+
+    .section {
+      margin: 0 0 24px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .section-wide {
+      grid-column: 1 / -1;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      line-height: 1.1;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(34, 211, 238, 0.3);
+      background: var(--panel-strong);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .story-box {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .story-copy {
+      font-size: 1.08rem;
+    }
+
+    .quote-box {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.18);
+      color: var(--text);
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+      font-weight: 800;
+      line-height: 1.4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-box::after {
+      content: "rage incoming";
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.18);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .quote-box.glitching {
+      animation: rageShake 0.5s ease;
+      border-color: rgba(255, 79, 216, 0.42);
+      box-shadow: 0 0 0 1px rgba(255, 79, 216, 0.18), 0 20px 50px rgba(255, 79, 216, 0.12);
+    }
+
+    .drama-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .drama-value {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 9vw, 6.2rem);
+      line-height: 0.95;
+      color: #ffffff;
+      text-shadow:
+        -2px 0 rgba(34, 211, 238, 0.35),
+        2px 0 rgba(255, 79, 216, 0.28),
+        0 0 28px rgba(139, 92, 246, 0.24);
+    }
+
+    .drama-meta {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .drama-bar {
+      width: 100%;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 18px;
+    }
+
+    .drama-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--violet), var(--pink));
+      transition: width 0.35s ease;
+    }
+
+    .secret-toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      max-width: min(360px, calc(100% - 28px));
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(11, 16, 35, 0.94);
+      border: 1px solid rgba(34, 211, 238, 0.24);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .secret-toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .complaint-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .complaint-item {
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .complaint-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .complaint-item span {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+
+    .gallery-card {
+      overflow: hidden;
+    }
+
+    .gallery-frame {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #05060f;
+      min-height: 260px;
+    }
+
+    .gallery-frame img {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      object-fit: cover;
+      transition: transform 0.45s ease, filter 0.35s ease;
+      filter: saturate(1.04) contrast(1.02);
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.05);
+      filter: saturate(1.14) contrast(1.05);
+    }
+
+    .gallery-caption {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .game-shell {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .game-hud {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .game-stat {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .game-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+
+    .game-stat strong {
+      font-size: 1.15rem;
+    }
+
+    .playfield {
+      position: relative;
+      min-height: 420px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(139, 92, 246, 0.18);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.12), transparent 20%),
+        radial-gradient(circle at 85% 25%, rgba(255, 79, 216, 0.10), transparent 22%),
+        linear-gradient(180deg, rgba(9, 12, 24, 0.96), rgba(7, 10, 19, 0.94));
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), var(--shadow);
+    }
+
+    .playfield::before {
+      content: "MISSION : rattraper Manu avant boude totale";
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.16);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .game-target {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border: 0;
+      padding: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #05060f;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+      border: 2px solid rgba(34, 211, 238, 0.35);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .game-target:hover {
+      transform: scale(1.04);
+      box-shadow: 0 18px 34px rgba(34, 211, 238, 0.18);
+    }
+
+    .game-target img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .game-target::after {
+      content: "Clique !";
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      transform: translateX(-50%);
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(6, 10, 20, 0.78);
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .game-status {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      min-height: 48px;
+    }
+
+    .game-help {
+      display: grid;
+      gap: 12px;
+    }
+
+    .boss-mode .playfield {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 0 1px rgba(255, 79, 216, 0.3), 0 24px 60px rgba(0, 0, 0, 0.42);
+    }
+
+    .boss-mode .game-target {
+      border-color: rgba(255, 79, 216, 0.62);
+      box-shadow: 0 20px 42px rgba(255, 79, 216, 0.24);
+    }
+
+    .footer {
+      margin-top: 32px;
+      padding: 24px;
+      border-radius: var(--radius-xl);
+      background: rgba(9, 12, 24, 0.82);
+      border: 1px solid var(--line);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .footer strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+    }
+
+    .blink {
+      display: inline-block;
+      color: var(--pink);
+      animation: glitchShift 2s infinite steps(1);
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .story-box,
+      .section-grid,
+      .cards,
+      .drama-box,
+      .gallery-grid,
+      .game-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        border-radius: 28px;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 14px;
+      }
+
+      .topbar {
+        padding: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .panel,
+      .card,
+      .footer {
+        padding: 20px;
+      }
+
+      .game-hud {
+        grid-template-columns: 1fr;
+      }
+
+      .playfield {
+        min-height: 360px;
+      }
+
+      .hero-actions,
+      .chip-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .hero h1 {
+        line-height: 0.98;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell" id="appShell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 14H50V50H14V14Z" stroke="#22d3ee" stroke-width="4"/>
+            <path d="M22 20L32 26L42 20V42L32 48L22 42V20Z" fill="#8b5cf6" stroke="#eef2ff" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <strong>Manu le Kembo</strong>
+          <span>Le lore officiel du trio Fortnite en crise</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#histoire">Son histoire</a>
+        <a href="#trio">Le trio</a>
+        <a href="#galerie">Photos dossier</a>
+        <a href="#qualites">Ses qualités</a>
+        <a href="#simulateur">Simulateur de boude</a>
+        <a href="#jeu">Mini-jeu</a>
+        <a href="#rage">Compteur de boude</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <article class="panel">
+        <div class="eyebrow">Fortnite · Troll mode · Trio désorganisé</div>
+        <h1 class="glitch" data-text="Bienvenue dans l’univers de Manu le Kembo">Bienvenue dans l’univers de Manu le Kembo</h1>
+        <p>Le seul joueur qui boude pour une game Fortnite en <strong>trio</strong>. Ici on étudie un phénomène rare : le <strong>drame émotionnel de Manu le Raclot</strong>, déclenché quand le squad composé de toi, <strong>Katia ta femme</strong> et leur meilleur ami ne se retrouve pas au grand complet.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#simulateur">Découvrir sa tristesse 😢</a>
+          <a class="button button-secondary" href="#histoire">Entrer dans le drame cosmique</a>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Mode : Boude royale</span>
+          <span class="chip">Niveau : Trio incomplet</span>
+          <span class="chip">Statut : <span class="blink">en PLS stratégique</span></span>
+        </div>
+      </article>
+
+      <aside class="panel hero-card">
+        <div class="avatar-wrap">
+          <div class="avatar-glow"></div>
+          <svg class="avatar" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar cartoon gamer de Manu le Kembo">
+            <defs>
+              <linearGradient id="hood" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#17193a"/>
+                <stop offset="100%" stop-color="#090b19"/>
+              </linearGradient>
+              <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8b5cf6"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <rect x="46" y="42" width="228" height="236" rx="42" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)"/>
+            <path d="M96 112C96 74 124 52 160 52C196 52 224 74 224 112V140H96V112Z" fill="url(#hood)"/>
+            <path d="M108 144C108 104 132 84 160 84C188 84 212 104 212 144V170C212 210 190 236 160 236C130 236 108 210 108 170V144Z" fill="#f1c3a0"/>
+            <path d="M116 142C126 136 138 132 160 132C182 132 194 136 204 142" stroke="#1e1b4b" stroke-width="6" stroke-linecap="round"/>
+            <ellipse cx="136" cy="163" rx="10" ry="14" fill="#15162b"/>
+            <ellipse cx="184" cy="163" rx="10" ry="14" fill="#15162b"/>
+            <ellipse cx="132" cy="160" rx="3.5" ry="4.5" fill="#ffffff"/>
+            <ellipse cx="180" cy="160" rx="3.5" ry="4.5" fill="#ffffff"/>
+            <path d="M138 197C148 206 172 206 182 197" stroke="#7c2d12" stroke-width="6" stroke-linecap="round"/>
+            <path d="M118 120C126 96 142 84 162 84C182 84 198 96 206 120" stroke="#0b0c1c" stroke-width="10" stroke-linecap="round"/>
+            <path d="M98 280C110 238 132 220 160 220C188 220 210 238 222 280" fill="url(#shirt)"/>
+            <path d="M124 246C134 254 146 258 160 258C174 258 186 254 196 246" stroke="rgba(255,255,255,0.45)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M90 108L112 126" stroke="#22d3ee" stroke-width="5" stroke-linecap="round"/>
+            <path d="M230 108L208 126" stroke="#ff4fd8" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <span>État mental</span>
+            <strong>Fragile</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Trio manqué</span>
+            <strong>1 traumatisme majeur</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Katia témoin</span>
+            <strong>100% lucide</strong>
+          </div>
+          <div class="mini-stat">
+            <span>Énergie</span>
+            <strong>99% drama</strong>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="histoire">
+      <div class="panel story-box">
+        <div>
+          <div class="eyebrow">Chapitre I · Le drame</div>
+          <h2>Son histoire</h2>
+          <p class="story-copy">Tout a commencé un soir… Manu attendait son <strong>trio légendaire</strong>… toi, Katia et lui… mais la game n’est jamais partie… <strong>depuis ce jour, il est en PLS</strong>. 😭🎮 Depuis, chaque bruit de notification lui rappelle une session qui aurait dû finir en top 1. On raconte même qu’il fixe la liste d’amis en murmurant : <em>“même en trio vous me laissez tomber…”</em></p>
+        </div>
+        <div class="quote-box">
+          “Un trio incomplet, un cœur gamer froissé, une boude certifiée.” 💔
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trio">
+      <div class="cards">
+        <article class="card">
+          <h3>Toi 🎮</h3>
+          <p>Le joueur qui pensait juste rater une game, sans savoir qu’il déclenchait une légende urbaine de la boude.</p>
+        </article>
+        <article class="card">
+          <h3>Katia 👑</h3>
+          <p>La femme du duo devenu trio. Elle observe le drame avec lucidité, calme et sûrement un peu de fou rire.</p>
+        </article>
+        <article class="card">
+          <h3>Manu le Raclot 😤</h3>
+          <p>Le meilleur ami, grand artiste du “ça va t’inquiète” alors que rien ne va du tout depuis 48 heures.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="galerie">
+      <div class="panel">
+        <div class="eyebrow">Dossier sensible · preuves visuelles</div>
+        <h2>Galerie officielle de Manu en pleine phase de boude</h2>
+        <p class="section-intro">Des images exclusives du meilleur ami le plus dramatique du lobby. Chaque cliché capture une émotion précise : la déception, le silence pesant et le regard de celui qui n'a pas été pris dans le trio.</p>
+        <div class="gallery-grid">
+          <article class="card gallery-card">
+            <div class="gallery-frame">
+              <img src="media/manu1.jpeg" alt="Manu en mode regard déçu après une game ratée en trio" />
+            </div>
+            <p class="gallery-caption"><strong>Photo n°1 :</strong> le regard exact de Manu quand il comprend que le bus de combat est parti sans lui.</p>
+          </article>
+          <article class="card gallery-card">
+            <div class="gallery-frame">
+              <img src="media/manu2.jpeg" alt="Manu avec une expression de boude contenue" />
+            </div>
+            <p class="gallery-caption"><strong>Photo n°2 :</strong> le fameux visage “non non t'inquiète” alors que tout indique qu'il va ressortir l'affaire pendant trois jours.</p>
+          </article>
+          <article class="card gallery-card">
+            <div class="gallery-frame">
+              <img src="media/manu3.jpg" alt="Manu en mode flower filter et jugement silencieux" />
+            </div>
+            <p class="gallery-caption"><strong>Photo n°3 :</strong> l'apparence d'un homme doux, la puissance émotionnelle d'un meilleur ami oublié en pleine soirée Fortnite.</p>
+          </article>
+          <article class="card gallery-card">
+            <div class="gallery-frame">
+              <img src="media/manu4.jpeg" alt="Manu en mode cri de détresse maximum après une game sans lui" />
+            </div>
+            <p class="gallery-caption"><strong>Photo n°4 :</strong> le moment précis où Manu découvre que le trio a existé sans son approbation émotionnelle.</p>
+          </article>
+          <article class="card gallery-card">
+            <div class="gallery-frame">
+              <img src="media/manu5.jpeg" alt="Manu en mode regard sceptique et accusation silencieuse" />
+            </div>
+            <p class="gallery-caption"><strong>Photo n°5 :</strong> la tête officielle de celui qui dit “non mais tranquille” alors qu'il juge déjà tout le lobby.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="qualites">
+      <div class="cards">
+        <article class="card">
+          <h3>Boudeur professionnel 🥇</h3>
+          <p>Capable de transformer une simple absence Fortnite en crise diplomatique de niveau intercontinental.</p>
+        </article>
+        <article class="card">
+          <h3>Spécialiste des dramas 🎭</h3>
+          <p>Chaque phrase devient une scène. Chaque game ratée devient une série Netflix en 8 saisons.</p>
+        </article>
+        <article class="card">
+          <h3>Champion du “t’es pas venu hier” 😡</h3>
+          <p>Ne lâche rien. Même 48 heures plus tard, le dossier est encore chaud dans le tribunal de la boude.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="simulateur">
+      <div class="section-grid">
+        <article class="panel section-wide">
+          <div class="eyebrow">Expérience interactive</div>
+          <h2>Simulateur de boude</h2>
+          <p class="section-intro">Appuie si tu veux déclencher une réaction authentique, calibrée sur l’échelle émotionnelle officielle de Manu le Raclot version trio abandonné.</p>
+          <div class="hero-actions" style="margin-top: 18px;">
+            <button class="button button-primary" id="rageButton" type="button">Lancer une crise de Manu</button>
+            <button class="button button-secondary" id="rageModeButton" type="button">Activer le rage mode</button>
+            <button class="button button-secondary" id="scanButton" type="button">Scanner sa jalousie</button>
+          </div>
+          <div class="quote-box" id="quoteBox" style="margin-top: 20px;">
+            Clique pour entendre la voix intérieure du trio abandonné.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cards">
+        <article class="card">
+          <h3>Oracle de la boude 🔮</h3>
+          <p id="oracleText">Probabilité que Manu reparle normalement ce soir : 12%.</p>
+        </article>
+        <article class="card">
+          <h3>Indice de jalousie 💜</h3>
+          <p id="jealousyText">Niveau détecté : “Katia + toi sans moi, c’est rude”.</p>
+        </article>
+        <article class="card">
+          <h3>Excuse recommandée 🛡️</h3>
+          <p id="excuseText">“Frérot on relance ce soir en trio complet et on te laisse le lead.”</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cards">
+        <article class="card">
+          <h3>Mur des plaintes 📜</h3>
+          <div class="complaint-list">
+            <div class="complaint-item">
+              <strong>Rapport n°1</strong>
+              <span>“J’étais mentalement déjà dans le bus de combat et personne n’a respecté mon investissement émotionnel.”</span>
+            </div>
+            <div class="complaint-item">
+              <strong>Rapport n°2</strong>
+              <span>“Le trio était une vision. Une promesse. Une illusion.”</span>
+            </div>
+            <div class="complaint-item">
+              <strong>Rapport n°3</strong>
+              <span>“Je ne dis pas que je l’ai mal pris. Je dis juste que je m’en souviendrai jusqu’en 2043.”</span>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Trophées débloqués 🏆</h3>
+          <div class="complaint-list">
+            <div class="complaint-item">
+              <strong>Boude légendaire</strong>
+              <span>Obtenu après une session non lancée et au moins trois regards déçus dans le vide.</span>
+            </div>
+            <div class="complaint-item">
+              <strong>Drama tactique</strong>
+              <span>Attribué pour capacité à transformer une simple absence en épopée tragique multijoueur.</span>
+            </div>
+            <div class="complaint-item">
+              <strong>Meilleur ami offensé</strong>
+              <span>Statut spécial quand Manu répond “tkt” alors qu’en réalité il prépare un discours de 12 minutes.</span>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Easter eggs 🎁</h3>
+          <div class="complaint-list">
+            <div class="complaint-item">
+              <strong>Secret n°1</strong>
+              <span>Clique plusieurs fois sur le logo si tu penses que Manu mérite un monument national de la boude.</span>
+            </div>
+            <div class="complaint-item">
+              <strong>Secret n°2</strong>
+              <span>Tape un mot bien choisi au clavier si tu veux réveiller la forme ultime de Manu le Raclot.</span>
+            </div>
+            <div class="complaint-item">
+              <strong>Secret n°3</strong>
+              <span>Le scanner de jalousie peut parfois sortir des diagnostics absurdes. Il ne faut surtout pas les prendre au sérieux.</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="jeu">
+      <div class="panel">
+        <div class="eyebrow">Mini-jeu officiel</div>
+        <h2>Opération : rattraper Manu avant la boude totale</h2>
+        <p class="section-intro">Mission simple sur le papier : clique sur Manu quand il apparaît dans l'arène et fais remonter l'ambiance du trio avant la crise diplomatique finale.</p>
+        <div class="game-shell">
+          <div>
+            <div class="game-hud">
+              <div class="game-stat">
+                <span>Temps restant</span>
+                <strong id="gameTime">20s</strong>
+              </div>
+              <div class="game-stat">
+                <span>Manu rattrapé</span>
+                <strong id="gameScore">0</strong>
+              </div>
+              <div class="game-stat">
+                <span>Objectif trio</span>
+                <strong id="gameGoal">8</strong>
+              </div>
+            </div>
+            <div class="hero-actions" style="margin-top:0">
+              <button class="button button-primary" id="startGameButton" type="button">Lancer la mission</button>
+              <button class="button button-secondary" id="stopGameButton" type="button">Stopper le drame</button>
+            </div>
+            <div class="quote-box game-status" id="gameStatus" style="margin-top:20px">
+              Clique sur “Lancer la mission” pour empêcher Manu de disparaître dans sa boude légendaire.
+            </div>
+            <div class="chip-row">
+              <span class="chip">Boss mode à 5 clics</span>
+              <span class="chip">Photos de Manu en rotation</span>
+              <span class="chip">Réconciliation si objectif atteint</span>
+            </div>
+            <div class="cards" style="margin-top:18px">
+              <article class="card game-help">
+                <h3>Règle n°1</h3>
+                <p>Chaque clic réussi récupère Manu dans le trio et baisse légèrement son niveau de boude.</p>
+              </article>
+              <article class="card game-help">
+                <h3>Règle n°2</h3>
+                <p>Si tu atteins l'objectif avant la fin, la réconciliation est validée et le lore repart proprement.</p>
+              </article>
+              <article class="card game-help">
+                <h3>Boss mode</h3>
+                <p>Dès que Manu commence à se sentir traqué, il passe en mode cri cosmique et devient encore plus imprévisible.</p>
+              </article>
+            </div>
+          </div>
+          <div class="playfield" id="playfield" aria-label="Zone de jeu pour rattraper Manu">
+            <button class="game-target" id="gameTarget" type="button" hidden aria-label="Cliquer sur Manu">
+              <img id="gameTargetImage" src="media/manu1.jpeg" alt="Manu à rattraper dans le mini-jeu" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rage">
+      <div class="panel">
+        <div class="eyebrow">Mesure scientifique totalement douteuse</div>
+        <div class="drama-box">
+          <div>
+            <h2>Compteur de boude</h2>
+            <div class="drama-value" id="dramaValue">Niveau de boude de Manu : 9999%</div>
+            <div class="drama-bar" aria-hidden="true">
+              <div class="drama-fill" id="dramaFill"></div>
+            </div>
+          </div>
+          <div class="drama-meta">
+            <p>Le niveau de boude augmente automatiquement selon un algorithme complexe basé sur :</p>
+            <p>1. le temps sans game<br />2. le nombre de “wesh t’es où”<br />3. la profondeur de la boude<br />4. le fait que Katia soit là et que Manu ne soit pas dans le trio</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <strong>Site officiel de Manu le Raclot © 2026</strong>
+      <p class="footer-note">Ce site est une œuvre d’amour (et de troll). Tout est exagéré, tout est entre potes, et oui… le trio reviendra peut-être un jour, si Manu accepte de pardonner.</p>
+    </footer>
+  </div>
+  <div class="secret-toast" id="secretToast"></div>
+
+  <script>
+    const quotes = [
+      "Ouais tranquille vous partez en trio sans moi.",
+      "T’as changé frère…",
+      "Fortnite sans moi ? sérieux ?",
+      "Même Katia était là et moi non ? c’est trop pour mon cœur.",
+      "Le trio était prêt sauf visiblement dans l’univers parallèle où je joue avec vous.",
+      "J’étais là, prêt, chargé… et toi t’as disparu dans la nature.",
+      "Vous m’avez laissé seul face à mon destin de boudeur professionnel.",
+      "Même la map me respecte plus que toi là.",
+      "J’ai vu ton statut en ligne… je me suis effondré.",
+      "C’est plus un oubli, c’est un lore maintenant."
+    ];
+
+    const oracleQuotes = [
+      "Probabilité que Manu reparle normalement ce soir : 12%.",
+      "Analyse en cours : il fait encore semblant d’aller bien, donc 8%.",
+      "Si tu proposes un vrai trio complet, on remonte à 37%.",
+      "Après une game gagnée avec lui, la boude peut tomber à 3%."
+    ];
+
+    const jealousyQuotes = [
+      "Niveau détecté : “Katia + toi sans moi, c’est rude”.",
+      "Niveau détecté : “Je suis officiellement le quatrième membre d’un trio à trois”.",
+      "Niveau détecté : “Vous avez lancé une game sans prévenir, je m’en remettrai jamais”.",
+      "Niveau détecté : “Je vais répondre ‘tkt’ mais je suis détruit”."
+    ];
+
+    const excuseQuotes = [
+      "“Frérot on relance ce soir en trio complet et on te laisse le lead.”",
+      "“On t’a manqué, avoue, viens on fait trois games et on oublie tout.”",
+      "“Katia valide le rattrapage, tu peux revenir dans le roster.”",
+      "“On te doit un top 1 pour dommages émotionnels.”"
+    ];
+
+    const secretQuotes = [
+      "Easter egg débloqué : Manu exige maintenant une game, une pizza et des excuses officielles.",
+      "Mode légendaire activé : Manu le Raclot a senti une perturbation dans la file d’amis.",
+      "Succès secret : tu viens de réveiller la boude premium édition collector.",
+      "Alerte rare : Manu accepte peut-être de pardonner… ou alors il prépare une nouvelle plainte."
+    ];
+
+    const manuImages = [
+      "media/manu1.jpeg",
+      "media/manu2.jpeg",
+      "media/manu3.jpg",
+      "media/manu4.jpeg",
+      "media/manu5.jpeg"
+    ];
+
+    const quoteBox = document.getElementById("quoteBox");
+    const rageButton = document.getElementById("rageButton");
+    const rageModeButton = document.getElementById("rageModeButton");
+    const scanButton = document.getElementById("scanButton");
+    const appShell = document.getElementById("appShell");
+    const dramaValue = document.getElementById("dramaValue");
+    const dramaFill = document.getElementById("dramaFill");
+    const oracleText = document.getElementById("oracleText");
+    const jealousyText = document.getElementById("jealousyText");
+    const excuseText = document.getElementById("excuseText");
+    const secretToast = document.getElementById("secretToast");
+    const brandBadge = document.querySelector(".brand-badge");
+    const playfield = document.getElementById("playfield");
+    const gameTarget = document.getElementById("gameTarget");
+    const gameTargetImage = document.getElementById("gameTargetImage");
+    const startGameButton = document.getElementById("startGameButton");
+    const stopGameButton = document.getElementById("stopGameButton");
+    const gameStatus = document.getElementById("gameStatus");
+    const gameScore = document.getElementById("gameScore");
+    const gameTime = document.getElementById("gameTime");
+    const gameGoal = document.getElementById("gameGoal");
+
+    let currentDrama = 9999;
+    let rageMode = false;
+    let logoClicks = 0;
+    let secretTimer = null;
+    let typedBuffer = "";
+    let gameRunning = false;
+    let gameHits = 0;
+    let gameRemaining = 20;
+    let gameMoveTimer = null;
+    let gameCountdownTimer = null;
+    const gameGoalValue = 8;
+    let bossMode = false;
+
+    function randomManuImage() {
+      return manuImages[Math.floor(Math.random() * manuImages.length)];
+    }
+
+    function playBeep() {
+      try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.type = rageMode ? "sawtooth" : "square";
+        oscillator.frequency.setValueAtTime(rageMode ? 160 : 220, context.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(rageMode ? 320 : 180, context.currentTime + 0.18);
+        gain.gain.setValueAtTime(0.0001, context.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.28);
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start();
+        oscillator.stop(context.currentTime + 0.28);
+      } catch (error) {
+      }
+    }
+
+    function triggerQuote() {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteBox.textContent = quote;
+      quoteBox.classList.remove("glitching");
+      void quoteBox.offsetWidth;
+      quoteBox.classList.add("glitching");
+      appShell.classList.remove("rage-mode");
+      void appShell.offsetWidth;
+      appShell.classList.add("rage-mode");
+      currentDrama += rageMode ? Math.floor(Math.random() * 220 + 80) : Math.floor(Math.random() * 90 + 25);
+      updateDrama();
+      playBeep();
+    }
+
+    function scanDrama() {
+      oracleText.textContent = oracleQuotes[Math.floor(Math.random() * oracleQuotes.length)];
+      jealousyText.textContent = jealousyQuotes[Math.floor(Math.random() * jealousyQuotes.length)];
+      excuseText.textContent = excuseQuotes[Math.floor(Math.random() * excuseQuotes.length)];
+      currentDrama += Math.floor(Math.random() * 140 + 35);
+      updateDrama();
+      playBeep();
+    }
+
+    function updateDrama() {
+      dramaValue.textContent = `Niveau de boude de Manu : ${currentDrama}%`;
+      const visualLevel = Math.min(100, 20 + ((currentDrama % 10000) / 100));
+      dramaFill.style.width = `${visualLevel}%`;
+    }
+
+    function updateGameHud() {
+      gameScore.textContent = String(gameHits);
+      gameTime.textContent = `${gameRemaining}s`;
+      gameGoal.textContent = String(gameGoalValue);
+    }
+
+    function moveTarget() {
+      if (!gameRunning) return;
+      const targetSize = bossMode ? 122 : 110;
+      const padding = 16;
+      const topOffset = 46;
+      const maxLeft = Math.max(padding, playfield.clientWidth - targetSize - padding);
+      const maxTop = Math.max(topOffset, playfield.clientHeight - targetSize - padding);
+      const nextLeft = Math.floor(Math.random() * (maxLeft - padding + 1)) + padding;
+      const nextTop = Math.floor(Math.random() * (maxTop - topOffset + 1)) + topOffset;
+      gameTarget.style.width = `${targetSize}px`;
+      gameTarget.style.height = `${targetSize}px`;
+      gameTarget.style.left = `${nextLeft}px`;
+      gameTarget.style.top = `${nextTop}px`;
+      gameTargetImage.src = randomManuImage();
+    }
+
+    function stopMiniGame(message, success = false) {
+      gameRunning = false;
+      clearInterval(gameMoveTimer);
+      clearInterval(gameCountdownTimer);
+      gameMoveTimer = null;
+      gameCountdownTimer = null;
+      gameTarget.hidden = true;
+      bossMode = false;
+      document.body.classList.remove("boss-mode");
+      gameStatus.textContent = message;
+      playfield.style.boxShadow = success
+        ? "inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 0 1px rgba(34, 211, 238, 0.25), 0 24px 60px rgba(0, 0, 0, 0.42)"
+        : "";
+      if (success) {
+        showSecret("Mission réussie : Manu accepte de relancer une game en trio.");
+      }
+    }
+
+    function startMiniGame() {
+      clearInterval(gameMoveTimer);
+      clearInterval(gameCountdownTimer);
+      gameRunning = true;
+      gameHits = 0;
+      gameRemaining = 20;
+      bossMode = false;
+      gameTarget.hidden = false;
+      document.body.classList.remove("boss-mode");
+      gameStatus.textContent = "Mission lancée : clique sur Manu avant qu'il ne reparte bouder ailleurs.";
+      playfield.style.boxShadow = "inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 0 1px rgba(139, 92, 246, 0.28), 0 24px 60px rgba(0, 0, 0, 0.42)";
+      updateGameHud();
+      moveTarget();
+      gameMoveTimer = setInterval(moveTarget, rageMode ? 620 : 850);
+      gameCountdownTimer = setInterval(() => {
+        gameRemaining -= 1;
+        updateGameHud();
+        if (gameRemaining <= 0) {
+          stopMiniGame("Temps écoulé : Manu a quitté le lobby avec un regard extrêmement déçu.");
+        }
+      }, 1000);
+    }
+
+    function showSecret(message) {
+      secretToast.textContent = message;
+      secretToast.classList.add("is-visible");
+      clearTimeout(secretTimer);
+      secretTimer = setTimeout(() => {
+        secretToast.classList.remove("is-visible");
+      }, 3400);
+    }
+
+    function toggleRageMode() {
+      rageMode = !rageMode;
+      document.body.style.filter = rageMode ? "saturate(1.12) contrast(1.04)" : "";
+      rageModeButton.textContent = rageMode ? "Désactiver le rage mode" : "Activer le rage mode";
+      quoteBox.textContent = rageMode
+        ? "⚠️ Rage mode activé : le niveau de boude est hors de contrôle."
+        : "Rage mode calmé. Enfin… à peu près.";
+      playBeep();
+    }
+
+    brandBadge.addEventListener("click", () => {
+      logoClicks += 1;
+      if (logoClicks >= 5) {
+        logoClicks = 0;
+        currentDrama += 333;
+        updateDrama();
+        showSecret(secretQuotes[Math.floor(Math.random() * secretQuotes.length)]);
+        playBeep();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      typedBuffer = `${typedBuffer}${event.key}`.toLowerCase().slice(-12);
+      if (typedBuffer.includes("raclot")) {
+        typedBuffer = "";
+        currentDrama += 777;
+        updateDrama();
+        quoteBox.textContent = "Mode Raclot suprême activé : Manu a officiellement déposé une plainte émotionnelle.";
+        showSecret("Code secret détecté : Raclot suprême activé.");
+        playBeep();
+      }
+    });
+
+    rageButton.addEventListener("click", triggerQuote);
+    rageModeButton.addEventListener("click", toggleRageMode);
+    scanButton.addEventListener("click", scanDrama);
+    startGameButton.addEventListener("click", startMiniGame);
+    stopGameButton.addEventListener("click", () => {
+      if (!gameRunning) {
+        gameStatus.textContent = "Aucune mission en cours. Manu reste quand même très observateur.";
+        return;
+      }
+      stopMiniGame("Mission stoppée. Manu reste perplexe, mais la situation est encore rattrapable.");
+    });
+    gameTarget.addEventListener("click", () => {
+      if (!gameRunning) return;
+      gameHits += 1;
+      currentDrama = Math.max(120, currentDrama - Math.floor(Math.random() * 180 + 90));
+      updateDrama();
+      updateGameHud();
+      playBeep();
+      if (!bossMode && gameHits >= 5) {
+        bossMode = true;
+        document.body.classList.add("boss-mode");
+        gameStatus.textContent = "Boss mode activé : Manu hurle intérieurement et devient encore plus difficile à récupérer.";
+        clearInterval(gameMoveTimer);
+        gameMoveTimer = setInterval(moveTarget, 520);
+        gameTargetImage.src = "media/manu4.jpeg";
+        showSecret("Boss mode : Manu le Kembo vient d'entrer dans sa phase finale.");
+        moveTarget();
+        return;
+      }
+      if (gameHits >= gameGoalValue) {
+        stopMiniGame("Victoire : Manu est récupéré dans le trio et sa boude redescend à un niveau presque humain.", true);
+        return;
+      }
+      gameStatus.textContent = `Bien joué : Manu a été rattrapé ${gameHits} fois. Continue avant qu'il reparte en monologue.`;
+      moveTarget();
+    });
+
+    setInterval(() => {
+      currentDrama += rageMode ? 11 : 4;
+      updateDrama();
+    }, 1600);
+
+    updateDrama();
+    updateGameHud();
+  </script>
+</body>
+</html>
