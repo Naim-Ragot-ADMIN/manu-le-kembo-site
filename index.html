@@ -1183,14 +1183,14 @@
               <button class="button button-secondary expression-clear" data-expression-clear="bonus-secret" type="button">Effacer</button>
             </div>
           </article>
-          <article class="card sound-card" data-expression-card="phrase-secrete">
-            <h3 class="sound-card__title">Slot perso</h3>
-            <div class="sound-card__quote">Phrase secrète de Manu</div>
-            <div class="sound-card__status" id="status-phrase-secrete">Utilise ce slot pour enregistrer une expression libre à votre sauce.</div>
+          <article class="card sound-card" data-expression-card="grosse-kher">
+            <h3 class="sound-card__title">Expression bonus n°2</h3>
+            <div class="sound-card__quote">grosse kher</div>
+            <div class="sound-card__status" id="status-grosse-kher">Le son intégré "grosse kher" est prêt. Tu peux aussi l'écraser avec un nouvel enregistrement.</div>
             <div class="hero-actions">
-              <button class="button button-primary expression-play" data-expression-play="phrase-secrete" type="button">Écouter</button>
-              <button class="button button-secondary expression-record" data-expression-record="phrase-secrete" type="button">Enregistrer</button>
-              <button class="button button-secondary expression-clear" data-expression-clear="phrase-secrete" type="button">Effacer</button>
+              <button class="button button-primary expression-play" data-expression-play="grosse-kher" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="grosse-kher" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="grosse-kher" type="button">Effacer</button>
             </div>
           </article>
         </div>
@@ -1412,9 +1412,10 @@
         text: "bonus interdit ultra rare",
         asset: "media/Elise.m4a"
       },
-      "phrase-secrete": {
-        label: "Phrase secrète de Manu",
-        text: "Phrase secrète de Manu"
+      "grosse-kher": {
+        label: "grosse kher",
+        text: "grosse kher",
+        asset: "media/grosse-kher.m4a"
       }
     };
 
@@ -1635,9 +1636,7 @@
     async function clearExpression(key) {
       try {
         await removeAudioClip(key);
-        if (key === "phrase-secrete") {
-          updateExpressionStatus(key, "Slot libre à nouveau. Tu peux y enregistrer n'importe quelle formule perso.");
-        } else if (expressionCatalog[key].asset) {
+        if (expressionCatalog[key].asset) {
           updateExpressionStatus(key, `Vocal perso effacé. "${expressionCatalog[key].label}" repasse sur le son intégré.`);
         } else {
           updateExpressionStatus(key, "Vocal effacé. La lecture repassera en version synthétique.");
