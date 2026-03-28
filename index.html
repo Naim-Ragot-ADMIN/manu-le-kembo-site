@@ -125,6 +125,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
+      flex-wrap: wrap;
       padding: 14px 18px;
       margin-bottom: 24px;
       border: 1px solid var(--line);
@@ -168,6 +169,26 @@
       gap: 10px;
       flex-wrap: wrap;
       justify-content: flex-end;
+    }
+
+    .header-quick {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-left: auto;
+    }
+
+    .button-ghost {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      box-shadow: none;
+    }
+
+    .button-call {
+      padding: 12px 18px;
+      font-size: 0.92rem;
     }
 
     .nav a {
@@ -828,6 +849,11 @@
       .nav {
         justify-content: flex-start;
       }
+
+      .header-quick {
+        margin-left: 0;
+        justify-content: flex-start;
+      }
     }
 
     @media (max-width: 720px) {
@@ -840,6 +866,12 @@
         padding: 16px;
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .brand,
+      .nav,
+      .header-quick {
+        width: 100%;
       }
 
       .panel,
@@ -857,7 +889,8 @@
       }
 
       .hero-actions,
-      .chip-row {
+      .chip-row,
+      .header-quick {
         flex-direction: column;
         align-items: stretch;
       }
@@ -897,6 +930,10 @@
         <a href="#jeu">Mini-jeu</a>
         <a href="#rage">Compteur de boude</a>
       </nav>
+      <div class="header-quick">
+        <a class="button button-primary button-call" href="tel:0782307536">Appeler Naïm</a>
+        <a class="button button-secondary button-call" href="tel:0625484871">Appeler Katia</a>
+      </div>
     </header>
 
     <section class="hero">
@@ -907,10 +944,12 @@
         <div class="hero-actions">
           <a class="button button-primary" href="#simulateur">Découvrir sa tristesse 😢</a>
           <a class="button button-secondary" href="#histoire">Entrer dans le drame cosmique</a>
+          <button class="button button-secondary" id="fortniteButton" type="button">Essayer d'ouvrir Fortnite</button>
         </div>
         <div class="chip-row">
           <span class="chip">Mode : Boude royale</span>
           <span class="chip">Niveau : Trio incomplet</span>
+          <span class="chip">Appels rapides : Naïm et Katia</span>
           <span class="chip">Statut : <span class="blink">en PLS stratégique</span></span>
         </div>
       </article>
@@ -1092,7 +1131,7 @@
       <div class="panel">
         <div class="eyebrow">Soundboard du drame</div>
         <h2>Les expressions officielles de Manu</h2>
-        <p class="section-intro">Tu peux cliquer pour lancer l'expression, enregistrer ta propre version au micro, puis la garder dans le navigateur. Le dernier slot reste libre pour une phrase personnalisée.</p>
+        <p class="section-intro">Tu peux cliquer pour lancer les vrais sons, enregistrer ta propre version au micro, puis la garder dans le navigateur. J'ai aussi laissé un slot perso pour vos délires bonus.</p>
         <div class="soundboard-grid">
           <article class="card sound-card" data-expression-card="pshiiiiiii">
             <h3 class="sound-card__title">Expression n°1</h3>
@@ -1132,6 +1171,16 @@
               <button class="button button-primary expression-play" data-expression-play="kembooo" type="button">Écouter</button>
               <button class="button button-secondary expression-record" data-expression-record="kembooo" type="button">Enregistrer</button>
               <button class="button button-secondary expression-clear" data-expression-clear="kembooo" type="button">Effacer</button>
+            </div>
+          </article>
+          <article class="card sound-card" data-expression-card="bonus-secret">
+            <h3 class="sound-card__title">Expression bonus</h3>
+            <div class="sound-card__quote">Bonus interdit ultra rare</div>
+            <div class="sound-card__status" id="status-bonus-secret">Le son bonus est prêt. Tu peux aussi l'écraser avec un nouvel enregistrement si tu veux.</div>
+            <div class="hero-actions">
+              <button class="button button-primary expression-play" data-expression-play="bonus-secret" type="button">Écouter</button>
+              <button class="button button-secondary expression-record" data-expression-record="bonus-secret" type="button">Enregistrer</button>
+              <button class="button button-secondary expression-clear" data-expression-clear="bonus-secret" type="button">Effacer</button>
             </div>
           </article>
           <article class="card sound-card" data-expression-card="phrase-secrete">
@@ -1340,19 +1389,28 @@
     const expressionCatalog = {
       "pshiiiiiii": {
         label: "Pshiiiiiii",
-        text: "pshiiiiiii"
+        text: "pshiiiiiii",
+        asset: "media/Psssiii.m4a"
       },
       "mbheeee": {
         label: "Mbheeee",
-        text: "mbheeee"
+        text: "mbheeee",
+        asset: "media/Mbbbbeee.m4a"
       },
       "aaaaiiiiiiiie": {
         label: "Aaaaiiiiiiiie",
-        text: "aaaaiiiiiiiie"
+        text: "aaaaiiiiiiiie",
+        asset: "media/Aiiiie.m4a"
       },
       "kembooo": {
         label: "Kembooo",
-        text: "kembooo"
+        text: "kembooo",
+        asset: "media/Kembo.m4a"
+      },
+      "bonus-secret": {
+        label: "Bonus interdit",
+        text: "bonus interdit ultra rare",
+        asset: "media/Elise.m4a"
       },
       "phrase-secrete": {
         label: "Phrase secrète de Manu",
@@ -1381,6 +1439,7 @@
     const gameScore = document.getElementById("gameScore");
     const gameTime = document.getElementById("gameTime");
     const gameGoal = document.getElementById("gameGoal");
+    const fortniteButton = document.getElementById("fortniteButton");
     const expressionPlayButtons = [...document.querySelectorAll("[data-expression-play]")];
     const expressionRecordButtons = [...document.querySelectorAll("[data-expression-record]")];
     const expressionClearButtons = [...document.querySelectorAll("[data-expression-clear]")];
@@ -1487,6 +1546,14 @@
           updateExpressionStatus(key, `Lecture du vocal "${expression.label}".`);
           return;
         }
+        if (expression.asset) {
+          const builtInAudio = new Audio(expression.asset);
+          builtInAudio.play().catch(() => {
+            speakExpression(expression.text);
+          });
+          updateExpressionStatus(key, `Lecture du son intégré "${expression.label}".`);
+          return;
+        }
         speakExpression(expression.text);
         updateExpressionStatus(key, `Lecture synthétique de "${expression.label}" en attendant ton enregistrement.`);
       } catch (error) {
@@ -1570,6 +1637,8 @@
         await removeAudioClip(key);
         if (key === "phrase-secrete") {
           updateExpressionStatus(key, "Slot libre à nouveau. Tu peux y enregistrer n'importe quelle formule perso.");
+        } else if (expressionCatalog[key].asset) {
+          updateExpressionStatus(key, `Vocal perso effacé. "${expressionCatalog[key].label}" repasse sur le son intégré.`);
         } else {
           updateExpressionStatus(key, "Vocal effacé. La lecture repassera en version synthétique.");
         }
@@ -1585,6 +1654,8 @@
           const clip = await loadAudioClip(key);
           if (clip) {
             updateExpressionStatus(key, `Un vocal perso est prêt pour "${expressionCatalog[key].label}".`);
+          } else if (expressionCatalog[key].asset) {
+            updateExpressionStatus(key, `Le son intégré "${expressionCatalog[key].label}" est prêt à être lancé.`);
           }
         } catch (error) {
         }
@@ -1725,6 +1796,23 @@
       playBeep();
     }
 
+    function tryLaunchFortnite() {
+      const isLikelyMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+      if (isLikelyMobile) {
+        showSecret("Le bouton Fortnite est surtout utile sur PC avec Epic Games déjà installé.");
+        window.open("https://store.epicgames.com/fr/p/fortnite", "_blank", "noopener");
+        return;
+      }
+
+      showSecret("Tentative d'ouverture de Fortnite... si Epic Games est installé sur le PC.");
+      const launchUrl = "com.epicgames.launcher://apps/Fortnite?action=launch&silent=true";
+      const fallbackTimer = window.setTimeout(() => {
+        window.open("https://store.epicgames.com/fr/p/fortnite", "_blank", "noopener");
+      }, 1800);
+      window.addEventListener("blur", () => window.clearTimeout(fallbackTimer), { once: true });
+      window.location.href = launchUrl;
+    }
+
     brandBadge.addEventListener("click", () => {
       logoClicks += 1;
       if (logoClicks >= 5) {
@@ -1752,6 +1840,7 @@
     rageModeButton.addEventListener("click", toggleRageMode);
     scanButton.addEventListener("click", scanDrama);
     startGameButton.addEventListener("click", startMiniGame);
+    fortniteButton.addEventListener("click", tryLaunchFortnite);
     expressionPlayButtons.forEach((button) => {
       button.addEventListener("click", () => {
         playExpression(button.dataset.expressionPlay);
